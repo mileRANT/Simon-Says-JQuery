@@ -19,6 +19,15 @@ function nextSequence(){
 
 nextSequence();
 
-$("button").click(function(){
-    console.log(this.id)
+$(".btn").click(function(){
+    var userClicked = $(this).attr("id");
+    console.log(userClicked);
+    userClickedPattern.push(userClicked);
+    $(this).fadeIn(100).fadeToggle(100).fadeToggle(100);
+    var audio = new Audio("./sounds/" + userClicked + ".mp3");
+    audio.play();
 })
+
+function playButton(colorButton){
+
+}
