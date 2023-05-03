@@ -8,12 +8,13 @@ function nextSequence(){
     var randomNext = simonSays[nextNum];
     gamePattern.push(randomNext);
 
-    $("#" + randomNext).fadeIn(100).fadeToggle(100).fadeToggle(100);
-    // setTimeOut(function(){
-    //     $("#" + randomNext).classList.remove("pressed");
-    // },100);
-    var audio = new Audio("./sounds/" + randomNext + ".mp3");
-    audio.play();
+    playButton(randomNext);
+    // $("#" + randomNext).fadeIn(100).fadeToggle(100).fadeToggle(100);
+    // // setTimeOut(function(){
+    // //     $("#" + randomNext).classList.remove("pressed");
+    // // },100);
+    // var audio = new Audio("./sounds/" + randomNext + ".mp3");
+    // audio.play();
 
 }
 
@@ -21,13 +22,18 @@ nextSequence();
 
 $(".btn").click(function(){
     var userClicked = $(this).attr("id");
-    console.log(userClicked);
+    // console.log(userClicked);
     userClickedPattern.push(userClicked);
-    $(this).fadeIn(100).fadeToggle(100).fadeToggle(100);
-    var audio = new Audio("./sounds/" + userClicked + ".mp3");
-    audio.play();
+
+    playButton(userClicked);
+    // $(this).fadeIn(100).fadeToggle(100).fadeToggle(100);
+    // var audio = new Audio("./sounds/" + userClicked + ".mp3");
+    // audio.play();
 })
 
-function playButton(colorButton){
-
+function playButton(colorIDButton){
+    console.log(colorIDButton);
+    $("#" + colorIDButton).fadeIn(100).fadeToggle(100).fadeToggle(100);
+    var audio = new Audio("./sounds/" + colorIDButton + ".mp3");
+    audio.play();
 }
