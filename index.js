@@ -5,10 +5,12 @@ var userClickedPattern = [];
 var gameInProgress = false;
 
 function nextSequence(){
+    userClickedPattern = []; //clear user answer with every new stage
     var nextNum = Math.floor(Math.random()*4);
     var randomNext = simonSays[nextNum];
     gamePattern.push(randomNext);
-
+    console.log("Level " + gamePattern.length + " Answer: " + gamePattern);
+    $("#level-title").text("Level: " + (gamePattern.length));
     playButton(randomNext);
     $("#" + randomNext).fadeIn(100).fadeToggle(100).fadeToggle(100);
     // // setTimeOut(function(){
@@ -29,7 +31,7 @@ $(".btn").click(function(){
     playButton(userClicked);
     userClickAnimate(userClicked);
 
-
+    checkAnswer(userClickedPattern.length-1);
 })
 
 function playButton(colorIDButton){
@@ -55,11 +57,11 @@ $(document).keypress(function(KeyBoardEvent){
 })
 
 function simonSaysStartGame(){
-    while (gameInProgress){
-        $("#level-title").text("Level: " + (gamePattern.length+1 ));
+    // while (gameInProgress){
         nextSequence();
-        gameInProgress = false;
-    }
+    //     gameInProgress = false;
+
+    // }
 
     if (!gameInProgress){
         $("#level-title").text("Game Over");
@@ -73,4 +75,19 @@ function simonSaysStartGame(){
         gamePattern = [];
         
     }
+}
+
+function checkAnswer(currentLevel){
+    //note that currentlevel here is actually current level - 1 to adjust to the array
+    if (userClickedPattern[currentLevel] === gamePattern[currentLevel]){
+        console.log("Success");
+        if (userClickedPattern.length === gamePattern.length){
+            setTimeout(function () {
+              nextSequence();
+            }, 1000);
+          }
+    } else {
+        console.log("Fail");
+    }
+    console.log(userClickedPattern);
 }
