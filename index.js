@@ -58,23 +58,28 @@ $(document).keypress(function(KeyBoardEvent){
 
 function simonSaysStartGame(){
     // while (gameInProgress){
-        nextSequence();
+    nextSequence();
     //     gameInProgress = false;
 
     // }
 
-    if (!gameInProgress){
-        $("#level-title").text("Game Over");
-        setTimeout(function(){
-            $("#level-title").text("Highest level: " + (gamePattern.length+1 ));
-        }, 1000);
-        setTimeout(function(){
-            $("#level-title").text("Press A Key to Start");
-        }, 5000);
+    // if (!gameInProgress){
+    //     $("#level-title").text("Game Over");
+    //     $("body").addClass("game-over");
+    //     var audio = new Audio("./sounds/wrong.mp3");
+    //     audio.play();
+
+    //     setTimeout(function(){
+    //         $("#level-title").text("Highest level: " + (gamePattern.length+1 ));
+    //     }, 1000);
+    //     setTimeout(function(){
+    //         $("#level-title").text("Press A Key to Start");
+    //         $("body").removeClass("game-over");
+    //     }, 5000);
         
-        gamePattern = [];
+    //     gamePattern = [];
         
-    }
+    // }
 }
 
 function checkAnswer(currentLevel){
@@ -88,6 +93,22 @@ function checkAnswer(currentLevel){
           }
     } else {
         console.log("Fail");
+        $("#level-title").text("Game Over");
+        $("body").addClass("game-over");
+        var audio = new Audio("./sounds/wrong.mp3");
+        audio.play();
+
+        setTimeout(function(){
+            $("#level-title").text("Highest level: " + (gamePattern.length+1 ));
+        }, 1000);
+        setTimeout(function(){
+            $("#level-title").text("Press A Key to Start");
+            $("body").removeClass("game-over");
+        }, 5000);
+        
+        gamePattern = [];
+
+        gameInProgress = false;
     }
     console.log(userClickedPattern);
 }
