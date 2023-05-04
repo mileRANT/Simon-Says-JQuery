@@ -30,8 +30,11 @@ $(".btn").click(function(){
 
     playButton(userClicked);
     userClickAnimate(userClicked);
-
-    checkAnswer(userClickedPattern.length-1);
+    
+    if (gameInProgress){
+        checkAnswer(userClickedPattern.length-1);
+    }
+    
 })
 
 function playButton(colorIDButton){
@@ -58,6 +61,7 @@ $(document).keypress(function(KeyBoardEvent){
 
 function simonSaysStartGame(){
     // while (gameInProgress){
+    gamePattern = [];       //starting the game = reset the game
     nextSequence();
     //     gameInProgress = false;
 
@@ -82,13 +86,17 @@ function simonSaysStartGame(){
     // }
 }
 
-function checkAnswer(currentLevel){
+function checkAnswer(currentSequence){
     //note that currentlevel here is actually current level - 1 to adjust to the array
-    if (userClickedPattern[currentLevel] === gamePattern[currentLevel]){
+    if (userClickedPattern[currentSequence] === gamePattern[currentSequence]){
         console.log("Success");
         if (userClickedPattern.length === gamePattern.length){
+            $("body").addClass("correct");
+            setTimeout(function(){
+                $("body").removeClass("correct");
+            }, 100);
             setTimeout(function () {
-              nextSequence();
+                nextSequence();
             }, 1000);
           }
     } else {
@@ -99,14 +107,14 @@ function checkAnswer(currentLevel){
         audio.play();
 
         setTimeout(function(){
-            $("#level-title").text("Highest level: " + (gamePattern.length+1 ));
+            $("#level-title").text("Highest level: " + (gamePattern.length ));
         }, 1000);
         setTimeout(function(){
             $("#level-title").text("Press A Key to Start");
             $("body").removeClass("game-over");
-        }, 5000);
+        }, 3000);
         
-        gamePattern = [];
+        // gamePattern = [];
 
         gameInProgress = false;
     }
